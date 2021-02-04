@@ -4,21 +4,32 @@
       <span class="addContainer" @click="addTodo">
         <i class="fas fa-plus addBtn"></i>
       </span>
+      <Modal v-if="showModal" @close="showModal = false">
+          <h3 slot="header">custom header</h3>
+      </Modal>
   </div>
 </template>
 
 <script>
+import Modal from './common/Modal.vue'
 export default {
     data (){
         return{
             newTodoItem: "",
+            showModal: false
         }
+    },
+    components: {
+        Modal : Modal
     },
     methods : {
         addTodo (){
-            var obj = { completed: false, item: this.newTodoItem };
-            localStorage.setItem(this.newTodoItem,JSON.stringify(obj));
-            this.clearInput();
+            if (this.newTodoItem !==''){
+                this.$emit('addTodoItem', this.newTodoItem);
+                this.clearInput();
+            }else{
+                this.showModal = !this.showModal;
+            }
         },
         clearInput(){
             this.newTodoItem = '';
