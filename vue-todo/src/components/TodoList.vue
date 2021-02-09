@@ -1,6 +1,6 @@
 <template>
   <div>
-      <ul>
+      <transition-group name="list" tag="ul">
         <li class="shadow" v-for="(todoItem, index) in propsdata" :key="index">
             <i class="checkBtn fas fa-check" :class="{checkBtnCompleted: todoItem.completed}" @click="toggleComplete(todoItem, index)"></i>
             <span :class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
@@ -8,7 +8,7 @@
                 <i class="fas fa-trash-alt"></i>
             </i>
         </li>
-      </ul>
+      </transition-group>
   </div>
 </template>
 
@@ -59,5 +59,14 @@ li {
 .removeBtn {
     margin-left: auto;
     color: #de4343;
+}
+
+/* 리스트 아이템 트랜지션 효과  */
+.list-enter-active, .list-leave-active {
+    transition: all 1s;
+}
+.list-enter, .list-leave-to{
+    opacity: 0;
+    transform: translateY(30px);
 }
 </style>
